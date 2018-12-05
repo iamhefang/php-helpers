@@ -1,0 +1,30 @@
+{
+  "name": "hefang/php-helpers",
+  "type": "library",
+  "description": "PHP 助手类库",
+  "keywords": [
+    "字符串",
+    "加密",
+    "解密",
+    "文件",
+    "助手",
+    "string",
+    "encrypt",
+    "decrypt",
+    "file",
+    "helpers"
+  ],
+  "homepage": "https://github.com/iamhefang/php-helpers",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "authors": [
+    {
+      "name": "何方",
+      "email": "he@hefang.link",
+      "homepage": "https://hefang.link",
+      "role": "Developer"
+    }
+  ]
+}
