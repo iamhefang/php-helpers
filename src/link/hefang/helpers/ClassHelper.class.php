@@ -38,6 +38,7 @@ class ClassHelper
                 }
             }
         }, true);
+        self::$loaderRegistered = true;
     }
 
     private function __construct()
