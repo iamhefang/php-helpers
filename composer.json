@@ -26,5 +26,10 @@
       "homepage": "https://hefang.link",
       "role": "Developer"
     }
-  ]
+  ],
+  "autoload": {
+    "files": [
+      "src/php-helpers.php"
+    ]
+  }
 }
