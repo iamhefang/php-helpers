@@ -9,19 +9,24 @@
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 
-class ClassHelper
+final class ClassHelper
 {
     private static $loaderRegistered = false;
     private static $classPaths = [];
     private static $useRequire = true;
 
+    /**
+     * 设置加载类文件的时候使用'require'
+     * @param bool $useRequire true: 使用'require' false: 使用'include'
+     */
     public static function setUseRequire(bool $useRequire = true)
     {
         self::$useRequire = $useRequire;
     }
 
     /**
-     * @param string $classPath [optional]
+     * 设置类自动加载路径,
+     * @param string $classPath [optional] 绝对路径
      */
     public static function loader(string $classPath)
     {

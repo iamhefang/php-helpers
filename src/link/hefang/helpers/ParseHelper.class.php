@@ -9,7 +9,7 @@
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 
-class ParseHelper
+final class ParseHelper
 {
     const FALSE_VALUES = [
         "0", "false", "no", "null", "undefined", "not", "否", "关", "不", "错", "假", "非", "甭", "闭", "off"
@@ -23,7 +23,7 @@ class ParseHelper
         if (StringHelper::isNullOrBlank($obj)) {
             return $defaultValue;
         } else {
-            return array_search($obj, $defaultValue ? self::TRUE_VALUES : self::FALSE_VALUES) !== false;
+            return !in_array($obj . "", $defaultValue ? self::TRUE_VALUES : self::FALSE_VALUES);
         }
     }
 

@@ -4,3 +4,4 @@ build/
 build.php
 php-helpers.iml
 vendor/
+test/

@@ -7,9 +7,10 @@
  */
 
 namespace link\hefang\helpers;
+
 defined("PHP_HELPERS") or die(1);
 
-class StringHelper
+final class StringHelper
 {
 
     /**
@@ -80,6 +81,45 @@ class StringHelper
         return strlen($string) === 0;
     }
 
+    /**
+     * 截断字符串
+     * @param string $str 要截断的字符串
+     * @param int $maxLength 最大长度
+     * @param bool $appendDot 是否在字符串结尾加...
+     * @return string
+     */
+    public static function shortStr(string $str, int $maxLength, bool $appendDot = false): string
+    {
+        return (strlen($str) > $maxLength ? (substr($str, 0, $appendDot ? $maxLength - 3 : $maxLength)) : $str) . ($appendDot ? "..." : "");
+    }
+
+    public static function queryString(
+        array $map,
+        bool $urlEncode = true,
+        bool $ignoreNull = false,
+        bool $ignoreEmpty = false): string
+    {
+        $res = "";
+        if (!empty($map)) {
+            foreach ($map as $key => $value) {
+                if ($ignoreNull && $value === null) continue;
+                if ($ignoreEmpty && StringHelper::isNullOrEmpty($value)) continue;
+                $res .= "$key=" . ($urlEncode ? urlencode($value) : $value);
+            }
+        };
+        return $res;
+    }
+
+    /**
+     * 连接字符串
+     * @param string $items [optional] 要连接的字符串
+     * @return string
+     */
+    public static function contact($items)
+    {
+        return join("", func_get_args());
+    }
+
 
     /**
      * StringHelper constructor.
@@ -87,5 +127,4 @@ class StringHelper
     private function __construct()
     {
     }
-
 }

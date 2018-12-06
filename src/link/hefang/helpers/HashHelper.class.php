@@ -9,7 +9,7 @@
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 
-class HashHelper
+final class HashHelper
 {
     /**
      * @param string $pwd 前端使用 <code>sha1(password) + md5(password)</code> hash 过的72位密码

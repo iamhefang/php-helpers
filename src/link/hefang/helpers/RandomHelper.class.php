@@ -9,7 +9,7 @@
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 
-class RandomHelper
+final class RandomHelper
 {
     /**
      * 小写字母集
@@ -49,11 +49,21 @@ class RandomHelper
         return $res;
     }
 
+    /**
+     * 生成40位全局唯一id, 数据表主键一般使用这个值
+     * @return string
+     */
     public static function guid()
     {
         return self::string(40, self::LETTERS("LDU"));
     }
 
+    /**
+     * 生成随机字符串
+     * @param int $length 长度
+     * @param string|null $src 原始字符串
+     * @return string
+     */
     public static function string(int $length, string $src = null)
     {
         if ($length < 1) return "";
@@ -64,5 +74,46 @@ class RandomHelper
             $res .= $src{rand(0, $max)};
         }
         return $res;
+    }
+
+    /**
+     * 生成随机字符串
+     * @param int $length 长度
+     * @param bool $containsDigit 是否包含数字
+     * @return string
+     */
+    public static function letter(int $length, bool $containsDigit = true)
+    {
+        return self::string($length, self::LETTERS($containsDigit ? "LDU" : "LU"));
+    }
+
+    /**
+     * 生成随机数字字符串
+     * @param int $length 长度
+     * @return string
+     */
+    public static function digit(int $length)
+    {
+        return self::string($length, self::DIGITS);
+    }
+
+    /**
+     * 生成随机大写字符串
+     * @param int $length 长度
+     * @return string
+     */
+    public static function upper(int $length)
+    {
+        return self::string($length, self::UPPERS);
+    }
+
+    /**
+     * 生成随机小写字符串
+     * @param int $length 长度
+     * @return string
+     */
+    public static function lower(int $length)
+    {
+        return self::string($length, self::LOWERS);
     }
 }

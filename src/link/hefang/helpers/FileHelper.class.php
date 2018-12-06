@@ -9,16 +9,27 @@
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 
-class FileHelper
+final class FileHelper
 {
+    /**
+     * 列出目录内的子目录和文件
+     * @param string $rootDir 根目录
+     * @param callable|null $filter 过滤器
+     *
+     * 如只列出'a'开头的文件和目录: function(string $file){return $file{0} === "a";}
+     * @return array
+     */
     public static function listFilesAndDirs(string $rootDir, callable $filter = null): array
     {
         if (!is_dir($rootDir)) return [];
         $res = [];
+        if ($rootDir{strlen($rootDir) - 1} !== DIRECTORY_SEPARATOR) {
+            $rootDir = $rootDir . DIRECTORY_SEPARATOR;
+        }
         $items = scandir($rootDir);
         foreach ($items as $item) {
             if ($item === "." || $item === "..") continue;
-            $file = $rootDir . DS . $item;
+            $file = $rootDir . $item;
             if (!is_callable($filter) || $filter($file)) {
                 $res[] = $file;
             }
@@ -32,6 +43,12 @@ class FileHelper
         return $res;
     }
 
+    /**
+     * 列出目录内的所有文件
+     * @param string $rootDir 根目录
+     * @param callable|null $filter 过滤器
+     * @return array
+     */
     public static function listFiles(string $rootDir, callable $filter = null): array
     {
         $array = self::listFilesAndDirs($rootDir, function (string $file) {
@@ -40,6 +57,12 @@ class FileHelper
         return is_callable($filter) ? array_filter($array, $filter) : $array;
     }
 
+    /**
+     * 列出目录内的所有子目录
+     * @param string $rootDir 根目录
+     * @param callable|null $filter 过滤器
+     * @return array
+     */
     public static function listDirs(string $rootDir, callable $filter = null): array
     {
         $array = self::listFilesAndDirs($rootDir, function (string $file) {
@@ -48,6 +71,11 @@ class FileHelper
         return is_callable($filter) ? array_filter($array, $filter) : $array;
     }
 
+    /**
+     * 删除文件或目录, 或是文件则直接删除, 若是目录则删除目录本身以及目录内所有文件和子目录
+     * @param string $fileOrDir 要删除的文件或目录
+     * @return int 删除的文件和目录数
+     */
     public static function delete(string $fileOrDir): int
     {
         if (is_dir($fileOrDir)) {
@@ -56,6 +84,11 @@ class FileHelper
         return unlink($fileOrDir) ? 1 : 0;
     }
 
+    /**
+     * 清空目录, 不删除目录本身
+     * @param string $dir 要清空的目录
+     * @return int 删除的文件和子目录数
+     */
     public static function cleanDir(string $dir)
     {
         $files = array_reverse(self::listFilesAndDirs($dir));
