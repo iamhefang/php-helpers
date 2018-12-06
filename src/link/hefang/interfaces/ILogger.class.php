@@ -13,7 +13,6 @@ use link\hefang\enums\LogLevel;
 
 interface ILogger
 {
-
     public function getLevel(): LogLevel;
 
     public function setLevel(LogLevel $level);
@@ -22,9 +21,9 @@ interface ILogger
 
     public function notice(string $title, string $content);
 
-    public function warn(string $title, string $content, \Exception $e = null);
+    public function warn(string $title, string $content, \Throwable $e = null);
 
-    public function error(string $title, string $content, \Exception $e = null);
+    public function error(string $title, string $content, \Throwable $e = null);
 
     public function debug(string $title, string $content);
 }
