@@ -46,6 +46,49 @@ final class ClassHelper
         self::$loaderRegistered = true;
     }
 
+    /**
+     * @return array
+     */
+    public static function getClassPaths(): array
+    {
+        return array_merge([], self::$classPaths);
+    }
+
+    /**
+     * 获取指定目录或phar文件中的类
+     * 1. 类命名空间必须和目录结构一致
+     * 2. 类文件中只能包含一个类
+     * 3. 类文件名必须和类名完全一致且以小写字母 .class.php 做为后缀
+     * @param string $fileOrDir
+     * @return array
+     */
+    public static function findClassesIn(string $fileOrDir): array
+    {
+        if (!file_exists($fileOrDir)) {
+            return [];
+        }
+        if (is_file($fileOrDir) &&
+            StringHelper::endsWith($fileOrDir, true, ".phar") &&
+            !StringHelper::startsWith($fileOrDir, true, "phar://")) {
+            return self::findClassesIn("phar://" . $fileOrDir);
+        }
+        if (is_dir($fileOrDir)) {
+            $fileOrDir = FileHelper::appendDirSeparator($fileOrDir);
+            $classFiles = FileHelper::listFiles($fileOrDir, function (string $file) {
+                return StringHelper::endsWith($file, false, ".class.php");
+            });
+
+            foreach ($classFiles as &$file) {
+                $file = str_replace($fileOrDir, "", $file);
+                $file = str_replace(DIRECTORY_SEPARATOR, "\\", $file);
+                $file = str_replace(".class.php", "", $file);
+            }
+
+            return $classFiles;
+        }
+        return [];
+    }
+
     private function __construct()
     {
 

@@ -54,7 +54,8 @@ final class StringHelper
             if ($arg === null) continue;
             $len = strlen($arg);
             if ($len > $strLen) continue;
-            if ($ignoreCase ? strncasecmp($string, $arg, $len) : strncmp($string, $arg, $len)) {
+            $match = $ignoreCase ? strncasecmp($string, $arg, $len) : strncmp($string, $arg, $len);
+            if ($match === 0) {
                 return true;
             }
         }

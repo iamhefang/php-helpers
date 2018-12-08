@@ -103,6 +103,12 @@ final class FileHelper
         return $count;
     }
 
+    public static function appendDirSeparator(string $dir)
+    {
+        if ($dir{strlen($dir) - 1} === DIRECTORY_SEPARATOR) return $dir;
+        return $dir . DIRECTORY_SEPARATOR;
+    }
+
     private function __construct()
     {
     }
