@@ -32,7 +32,6 @@ final class ObjectHelper
      */
     public static function nullOrDefault($var, $defaultValue)
     {
-        self::checkNull($defaultValue);
         return $var === null ? $defaultValue : $var;
     }
 
