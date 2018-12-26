@@ -36,6 +36,69 @@ final class ObjectHelper
     }
 
     /**
+     * @param string $class
+     * @param string $name
+     * @return \ReflectionProperty
+     * @throws \ReflectionException
+     */
+    public static function getProperty(string $class, string $name): \ReflectionProperty
+    {
+        $ref = new \ReflectionClass($class);
+        return self::fetchProperty($ref, $name);
+    }
+
+    /**
+     * @param \ReflectionClass $reflectionClass
+     * @param string $name
+     * @return \ReflectionProperty
+     * @throws \ReflectionException
+     */
+    public static function fetchProperty(\ReflectionClass $reflectionClass, string $name): \ReflectionProperty
+    {
+        $field = null;
+        while (true) {
+            try {
+                $field = $reflectionClass->getProperty($name);
+                break;
+            } catch (\Throwable $e) {
+                $reflectionClass = $reflectionClass->getParentClass();
+                if (!$reflectionClass) break;
+            }
+        }
+        if ($field === null) {
+            throw new \ReflectionException("Property '$name' does not exist");
+        }
+        return $field;
+
+    }
+
+    /**
+     * @param string $class
+     * @param callable|null $filter
+     * @return array
+     * @throws \ReflectionException
+     */
+    public static function getProperties(string $class, $filter = null): array
+    {
+        $ref = $ref = new \ReflectionClass($class);
+        return self::fetchProperties($ref, $filter);
+    }
+
+    public static function fetchProperties(\ReflectionClass $reflectionClass, $filter = null): array
+    {
+        $res = [];
+        while (true) {
+            try {
+                $res = array_merge($res, $reflectionClass->getProperties($filter));
+            } catch (\Throwable $exception) {
+                $reflectionClass = $reflectionClass->getParentClass();
+                if (!$reflectionClass) break;
+            }
+        }
+        return $res;
+    }
+
+    /**
      * ObjectHelper constructor.
      */
     private function __construct()

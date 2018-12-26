@@ -11,6 +11,7 @@ defined("PHP_HELPERS") or die(1);
 
 use link\hefang\exceptions\FileNotFoundException;
 use link\hefang\exceptions\IOException;
+use link\hefang\helpers\StringHelper;
 
 class Properties
 {
@@ -89,12 +90,14 @@ class Properties
      */
     public function getProperty(string $key, string $defaultValue = null)
     {
-        return array_key_exists($key, $this->map) ? $this->map[$key] :
+        $value = array_key_exists($key, $this->map) ? $this->map[$key] :
             ($this->defaults === null ? $defaultValue : $this->defaults->getProperty($key, $defaultValue));
+        return StringHelper::isNullOrBlank($value) ? $defaultValue : $value;
     }
 
     public function propertyNames()
     {
         return array_keys($this->map);
     }
+
 }
