@@ -13,9 +13,9 @@ final class TimeHelper
 {
     const  SMALL_MONTH = [4, 6, 9, 11];
 
-    public static function currentTimeMillis(): int
+    public static function currentTimeMillis(): float
     {
-        return (int)(microtime(true) * 1000);
+        return floor(microtime(true) * 1000);
     }
 
     /**

@@ -11,7 +11,7 @@ defined("PHP_HELPERS") or die(1);
 
 final class CollectionHelper
 {
-    public static function getOrDefault(array $array, string $key, $defaultValue = null)
+    public static function getOrDefault($array, string $key, $defaultValue = null)
     {
         return is_array($array) && array_key_exists($key, $array) ? $array[$key] : $defaultValue;
     }
@@ -22,8 +22,9 @@ final class CollectionHelper
      * @param $defaultValue mixed 默认值
      * @return mixed
      */
-    public static function first(array $array, $defaultValue)
+    public static function first($array, $defaultValue = null)
     {
+        if (!is_array($array)) return $defaultValue;
         return empty($array) ? $defaultValue : $array[0];
     }
 
@@ -34,8 +35,9 @@ final class CollectionHelper
      * @param $defaultValue mixed 默认值
      * @return mixed
      */
-    public static function last(array $array, $defaultValue)
+    public static function last($array, $defaultValue = null)
     {
+        if (!is_array($array)) return $defaultValue;
         return empty($array) ? $defaultValue : $array[count($array) - 1];
     }
 

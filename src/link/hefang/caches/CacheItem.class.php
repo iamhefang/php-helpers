@@ -7,9 +7,12 @@
  */
 
 namespace link\hefang\caches;
+
+use link\hefang\helpers\CollectionHelper;
+
 defined("PHP_HELPERS") or die(1);
 
-class CacheItem
+class CacheItem implements \Serializable
 {
     private $value = null;
     private $expireIn = 0;
@@ -27,11 +30,7 @@ class CacheItem
 
     public static function fromSerializedString(string $string): CacheItem
     {
-        $res = unserialize($string);
-        if (!$res) {
-            return new CacheItem("", 1);
-        }
-        return $res;
+        return unserialize($string);
     }
 
     /**
@@ -70,4 +69,30 @@ class CacheItem
         return $this;
     }
 
+    /**
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        return serialize(["value" => $this->value, "expireIn" => $this->expireIn]);
+    }
+
+    /**
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        $tmp = unserialize($serialized);
+        $this->value = CollectionHelper::getOrDefault($tmp, 'value');
+        $this->expireIn = CollectionHelper::getOrDefault($tmp, 'expireIn');
+    }
 }
