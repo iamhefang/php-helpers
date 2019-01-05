@@ -24,8 +24,9 @@ final class TimeHelper
      * @param int $timeMillis 毫秒级时间戳, 默认为当前时间
      * @return false|string
      */
-    public static function formatMillis(string $format = "Y-m-d H:i:s", int $timeMillis = -1)
+    public static function formatMillis(string $format = "Y-m-d H:i:s", float $timeMillis = -1)
     {
+        $timeMillis = floor($timeMillis);
         if ($timeMillis < 0) $timeMillis = self::currentTimeMillis();
         return date($format, $timeMillis / 1000);
     }
