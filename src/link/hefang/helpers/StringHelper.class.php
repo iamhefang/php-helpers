@@ -12,6 +12,40 @@ defined("PHP_HELPERS") or die(1);
 
 final class StringHelper
 {
+    /**
+     * 将驼峰写法的字符串转换为下划线
+     * @param string $string
+     * @return string
+     */
+    public static function hump2underLine(string $string): string
+    {
+        $charArr = preg_split("//u", $string, -1, PREG_SPLIT_NO_EMPTY);
+        $str = '';
+        for ($idx = 0; $idx < count($charArr); $idx++) {
+            $ascii = ord($charArr[$idx]);
+            if ($ascii >= 65 && $ascii <= 90) {
+                $str .= '_' . strtolower($charArr[$idx]);
+            } else {
+                $str .= $charArr[$idx];
+            }
+        }
+        return $str;
+    }
+
+    /**
+     * 将下划线连接的字符串转换为驼峰
+     * @param string $string
+     * @param bool $upperFirstChar 第一个字母是否大写
+     * @return string
+     */
+    public static function underLine2hump(string $string, bool $upperFirstChar = true): string
+    {
+        $chars = explode("_", $string);
+        if ($upperFirstChar) {
+            return join('', array_map('ucfirst', $chars));
+        }
+        return array_shift($chars) . join('', array_map('ucfirst', $chars));
+    }
 
     /**
      * @param string $string
@@ -19,7 +53,28 @@ final class StringHelper
      * @param string $searches [optional]
      * @return bool
      */
-    public static function endsWith(string $string, bool $ignoreCase = false, string $searches)
+    public static function contains(string $string, bool $ignoreCase = false, string $searches = ''): bool
+    {
+        $searches = func_get_args();
+        $string = array_shift($searches);
+        $ignoreCase = array_shift($searches);
+
+        $ignoreCase and $string = strtolower($string);
+
+        foreach ($searches as $search) {
+            $ignoreCase and $search = strtolower($search);
+            if (strpos($string, $search) !== false) return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param string $string
+     * @param bool $ignoreCase
+     * @param string $searches [optional]
+     * @return bool
+     */
+    public static function endsWith(string $string, bool $ignoreCase = false, string $searches = '')
     {
         $args = func_get_args();
         $string = array_shift($args);
@@ -42,7 +97,7 @@ final class StringHelper
      * @param string $searches [optional]
      * @return bool
      */
-    public static function startsWith(string $string, bool $ignoreCase = false, string $searches)
+    public static function startsWith(string $string, bool $ignoreCase = false, string $searches = '')
     {
         $args = func_get_args();
         $string = array_shift($args);
