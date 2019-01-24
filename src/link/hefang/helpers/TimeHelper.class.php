@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/6
- * Time: 08:59
- */
 
 namespace link\hefang\helpers;
 

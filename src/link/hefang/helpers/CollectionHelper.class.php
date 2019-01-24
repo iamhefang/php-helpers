@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/3
- * Time: 10:54
- */
 
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
+
 
 final class CollectionHelper
 {
@@ -25,7 +20,10 @@ final class CollectionHelper
     public static function first($array, $defaultValue = null)
     {
         if (!is_array($array)) return $defaultValue;
-        return empty($array) ? $defaultValue : $array[0];
+        foreach ($array as $key => $value) {
+            return $value;
+        }
+        return $defaultValue;
     }
 
 
