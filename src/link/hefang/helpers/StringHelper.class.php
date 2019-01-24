@@ -24,7 +24,7 @@ final class StringHelper
         for ($idx = 0; $idx < count($charArr); $idx++) {
             $ascii = ord($charArr[$idx]);
             if ($ascii >= 65 && $ascii <= 90) {
-                $str .= '_' . strtolower($charArr[$idx]);
+                $str .= ($idx === 0 ? '' : '_') . strtolower($charArr[$idx]);
             } else {
                 $str .= $charArr[$idx];
             }
@@ -40,7 +40,7 @@ final class StringHelper
      */
     public static function underLine2hump(string $string, bool $upperFirstChar = true): string
     {
-        $chars = explode("_", $string);
+        $chars = explode("_", trim($string, "_"));
         if ($upperFirstChar) {
             return join('', array_map('ucfirst', $chars));
         }
@@ -50,14 +50,17 @@ final class StringHelper
     /**
      * @param string $string
      * @param bool $ignoreCase
-     * @param string $searches [optional]
+     * @param string|array $searches [optional]
      * @return bool
      */
-    public static function contains(string $string, bool $ignoreCase = false, string $searches = ''): bool
+    public static function contains(string $string, bool $ignoreCase = false, $searches = ''): bool
     {
-        $searches = func_get_args();
-        $string = array_shift($searches);
-        $ignoreCase = array_shift($searches);
+        if (!is_array($searches)) {
+            $searches = func_get_args();
+            $string = array_shift($searches);
+            $ignoreCase = array_shift($searches);
+        }
+        if (!strlen($string)) return false;
 
         $ignoreCase and $string = strtolower($string);
 
@@ -71,22 +74,24 @@ final class StringHelper
     /**
      * @param string $string
      * @param bool $ignoreCase
-     * @param string $searches [optional]
+     * @param string|array $searches [optional]
      * @return bool
      */
-    public static function endsWith(string $string, bool $ignoreCase = false, string $searches = '')
+    public static function endsWith(string $string, bool $ignoreCase = false, $searches = '')
     {
-        $args = func_get_args();
-        $string = array_shift($args);
-        $ignoreCase = array_shift($args);
-        ObjectHelper::checkNull($string);
+        if (!is_array($searches)) {
+            $searches = func_get_args();
+            $string = array_shift($searches);
+            $ignoreCase = array_shift($searches);
+        }
+
         $strLen = strlen($string);
         if ($strLen === 0) return false;
-        foreach ($args as $arg) {
-            if ($arg === null) continue;
-            $len = strlen($arg);
+        foreach ($searches as $search) {
+            if ($search === null) continue;
+            $len = strlen($search);
             if ($len > $strLen) continue;
-            return substr_compare($string, $arg, $strLen - $len, $len, $ignoreCase) === 0;
+            return substr_compare($string, $search, $strLen - $len, $len, $ignoreCase) === 0;
         }
         return false;
     }
@@ -97,19 +102,20 @@ final class StringHelper
      * @param string $searches [optional]
      * @return bool
      */
-    public static function startsWith(string $string, bool $ignoreCase = false, string $searches = '')
+    public static function startsWith(string $string, bool $ignoreCase = false, $searches = '')
     {
-        $args = func_get_args();
-        $string = array_shift($args);
-        $ignoreCase = array_shift($args);
-        ObjectHelper::checkNull($string);
+        if (!is_array($searches)) {
+            $searches = func_get_args();
+            $string = array_shift($searches);
+            $ignoreCase = array_shift($searches);
+        }
         $strLen = strlen($string);
         if ($strLen === 0) return false;
-        foreach ($args as $arg) {
-            if ($arg === null) continue;
-            $len = strlen($arg);
+        foreach ($searches as $search) {
+            if ($search === null) continue;
+            $len = strlen($search);
             if ($len > $strLen) continue;
-            $match = $ignoreCase ? strncasecmp($string, $arg, $len) : strncmp($string, $arg, $len);
+            $match = $ignoreCase ? strncasecmp($string, $search, $len) : strncmp($string, $search, $len);
             if ($match === 0) {
                 return true;
             }
@@ -146,7 +152,7 @@ final class StringHelper
      */
     public static function shortStr(string $str, int $maxLength, bool $appendDot = false): string
     {
-        return (strlen($str) > $maxLength ? (substr($str, 0, $appendDot ? $maxLength - 3 : $maxLength)) : $str) . ($appendDot ? "..." : "");
+        return (mb_strlen($str) > $maxLength ? (mb_substr($str, 0, $appendDot ? $maxLength - 3 : $maxLength)) : $str) . ($appendDot ? "..." : "");
     }
 
     public static function queryString(
@@ -155,15 +161,15 @@ final class StringHelper
         bool $ignoreNull = false,
         bool $ignoreEmpty = false): string
     {
-        $res = "";
+        $res = [];
         if (!empty($map)) {
             foreach ($map as $key => $value) {
                 if ($ignoreNull && $value === null) continue;
                 if ($ignoreEmpty && StringHelper::isNullOrEmpty($value)) continue;
-                $res .= "$key=" . ($urlEncode ? urlencode($value) : $value);
+                $res[] = "$key=" . ($urlEncode ? urlencode($value) : $value);
             }
         };
-        return $res;
+        return join('&', $res);
     }
 
     /**
@@ -173,7 +179,7 @@ final class StringHelper
      */
     public static function contact($items)
     {
-        return join("", func_get_args());
+        return join("", is_array($items) ? $items : func_get_args());
     }
 
 
