@@ -74,6 +74,6 @@ class TOTP extends OTP
      */
     protected function timecode(int $timestamp): int
     {
-        return (int)((((int)$timestamp * 1000) / ($this->interval * 1000)));
+        return (int)(($timestamp * 1000) / ($this->interval * 1000));
     }
 }

@@ -69,12 +69,14 @@ class Base32
         }
         $input = str_replace('=', '', $input);
         $input = str_split($input);
+        $inputCount = count($input);
         $binaryString = "";
-        for ($i = 0; $i < count($input); $i = $i + 8) {
+        for ($i = 0; $i < $inputCount; $i = $i + 8) {
             $x = "";
             if (!in_array($input[$i], self::MAP)) return false;
             for ($j = 0; $j < 8; $j++) {
-                $x .= str_pad(base_convert(@self::FLIPPED_MAP[@$input[$i + $j]], 10, 2), 5, '0', STR_PAD_LEFT);
+                $idx = $i + $j;
+                $inputCount > $idx and $x .= str_pad(base_convert(self::FLIPPED_MAP[$input[$idx]], 10, 2), 5, '0', STR_PAD_LEFT);
             }
             $eightBits = str_split($x, 8);
             for ($z = 0; $z < count($eightBits); $z++) {
