@@ -65,6 +65,7 @@ final class StringHelper
         $ignoreCase and $string = strtolower($string);
 
         foreach ($searches as $search) {
+            if (!$search) continue;
             $ignoreCase and $search = strtolower($search);
             if (strpos($string, $search) !== false) return true;
         }
@@ -88,7 +89,7 @@ final class StringHelper
         $strLen = strlen($string);
         if ($strLen === 0) return false;
         foreach ($searches as $search) {
-            if ($search === null) continue;
+            if (!$search) continue;
             $len = strlen($search);
             if ($len > $strLen) continue;
             return substr_compare($string, $search, $strLen - $len, $len, $ignoreCase) === 0;
@@ -112,7 +113,7 @@ final class StringHelper
         $strLen = strlen($string);
         if ($strLen === 0) return false;
         foreach ($searches as $search) {
-            if ($search === null) continue;
+            if (!$search) continue;
             $len = strlen($search);
             if ($len > $strLen) continue;
             $match = $ignoreCase ? strncasecmp($string, $search, $len) : strncmp($string, $search, $len);

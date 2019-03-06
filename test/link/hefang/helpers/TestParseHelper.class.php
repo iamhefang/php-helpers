@@ -15,5 +15,11 @@ class TestParseHelper extends TestCase
         foreach (ParseHelper::TRUE_VALUES as $value) {
             self::assertTrue(ParseHelper::parseBoolean($value));
         }
+        foreach (['FALSE', 'FalsE', '0', 0, false, '', null] as $value) {
+            self::assertFalse(ParseHelper::parseBoolean($value));
+        }
+        foreach (['TrUe', 1, '1', 100, 'sdfsdfsdfsd', [1, 2]] as $value) {
+            self::assertTrue(ParseHelper::parseBoolean($value));
+        }
     }
 }
