@@ -19,7 +19,8 @@ class NetHelper
         curl_setopt($ch, CURLOPT_AUTOREFERER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, $option->getHeaders());
+        curl_setopt($ch, CURLOPT_HEADER, $option->isShowResponseHeader());
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $option->getHeaders());
         if ($option->getMethod() === 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
             if ($option->getPostData()) {

@@ -1,10 +1,25 @@
 <?php
 
 namespace link\hefang\helpers;
+
+use link\hefang\crypt\Des;
+
 defined("PHP_HELPERS") or die(1);
 
 final class HashHelper
 {
+    public static function desEncrypt(string $data, string $key): string
+    {
+        $des = new Des();
+        return $des->encrypt($data, $key);
+    }
+
+    public static function desDecrypt(string $data, string $key): string
+    {
+        $des = new Des();
+        return $des->decrypt($data, $key);
+    }
+
     /**
      * @param string $pwd 前端使用 <code>sha1(password) + md5(password)</code> hash 过的72位密码
      * @param string $salt 加密时使用的盐

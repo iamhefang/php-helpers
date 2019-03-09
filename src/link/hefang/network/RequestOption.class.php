@@ -9,6 +9,8 @@
 namespace link\hefang\network;
 
 
+use link\hefang\helpers\CollectionHelper;
+
 class RequestOption
 {
     private $url = '';
@@ -16,6 +18,9 @@ class RequestOption
     private $headers = [];
     private $postData;
     private $option = [];
+    private $showResponseHeader = false;
+    private $userAgent = '';
+
 
     /**
      * RequestOption constructor.
@@ -23,6 +28,14 @@ class RequestOption
      */
     public function __construct(string $url)
     {
+        $ver = curl_version();
+        $this->userAgent = join(' ', [
+            'PHP/' . PHP_VERSION,
+            'NetHelper/' . PHP_HELPERS_VERSION,
+            'cURL/' . CollectionHelper::getOrDefault($ver, 'version', 'unknown'),
+            CollectionHelper::getOrDefault($ver, 'ssl_version', ''),
+            CollectionHelper::getOrDefault($ver, 'libssh_version', '')
+        ]);
         $this->url = $url;
     }
 
@@ -125,6 +138,24 @@ class RequestOption
     public function addOption(int $name, $value): RequestOption
     {
         $this->option[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowResponseHeader(): bool
+    {
+        return $this->showResponseHeader;
+    }
+
+    /**
+     * @param bool $showResponseHeader
+     * @return RequestOption
+     */
+    public function setShowResponseHeader(bool $showResponseHeader): RequestOption
+    {
+        $this->showResponseHeader = $showResponseHeader;
         return $this;
     }
 
