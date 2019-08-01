@@ -4,12 +4,10 @@ namespace link\hefang\helpers;
 
 use PHPUnit\Framework\TestCase;
 
-defined('PROJECT_NAME') or die("Access Refused");
-
-
 class TestCollectionHelper extends TestCase
 {
     private static $arr = ['b' => 1, 'a' => null, 'c' => ''];
+    private static $arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     public function testGetOrDefault()
     {
@@ -20,6 +18,7 @@ class TestCollectionHelper extends TestCase
 
     public function testFirst()
     {
+        self::assertEquals(CollectionHelper::first(self::$arr1), 1);
         self::assertEquals(CollectionHelper::first(self::$arr), 1);
         self::assertEquals(CollectionHelper::first(array_keys(self::$arr)), 'b');
         self::assertEquals(CollectionHelper::first(array_values(self::$arr)), 1);
@@ -27,7 +26,8 @@ class TestCollectionHelper extends TestCase
 
     public function testLast()
     {
-        self::assertEquals(CollectionHelper::last(self::$arr), 1);
+        self::assertEquals(CollectionHelper::last(self::$arr1), 9);
+        self::assertEquals(CollectionHelper::last(self::$arr), '');
         self::assertEquals(CollectionHelper::last(array_keys(self::$arr)), 'c');
         self::assertEquals(CollectionHelper::last(array_values(self::$arr)), '');
     }

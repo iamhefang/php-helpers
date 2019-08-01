@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/6
- * Time: 09:58
- */
-
 namespace link\hefang\helpers;
 
 
 use link\hefang\exceptions\ExtensionNotLoadException;
+use ZipArchive;
 
 final class ZipHelper
 {
@@ -26,8 +20,8 @@ final class ZipHelper
         if (!file_exists($zipFile) || !is_dir($extractTo) || !is_writable($extractTo)) {
             return false;
         }
-        $zip = new \ZipArchive();
-        if ($zip->open(\ZipArchive::ER_OPEN) !== true) {
+        $zip = new ZipArchive();
+        if ($zip->open(ZipArchive::ER_OPEN) !== true) {
             return false;
         }
         if (!StringHelper::isNullOrBlank($password)) {
@@ -57,8 +51,8 @@ final class ZipHelper
             return false;
         }
 
-        $zip = new \ZipArchive();
-        if ($zip->open($destFile, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+        $zip = new ZipArchive();
+        if ($zip->open($destFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
             return false;
         }
         $hasPassword = !StringHelper::isNullOrBlank($password);
@@ -83,7 +77,7 @@ final class ZipHelper
                     $zip->addFile($file, $name);
                 }
                 if ($supportPassword) {
-                    $zip->setEncryptionName($name, \ZipArchive::EM_AES_128);
+                    $zip->setEncryptionName($name, ZipArchive::EM_AES_128);
                 }
             }
         } else {

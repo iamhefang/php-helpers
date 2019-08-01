@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/3
- * Time: 09:16
- */
-
 namespace link\hefang\enums;
 defined("PHP_HELPERS") or die(1);
 

@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: he
- * Date: 2019/3/6
- * Time: 9:40
- */
-
 namespace link\hefang\helpers;
-
 
 use link\hefang\otp\TOTP;
 use PHPUnit\Framework\TestCase;

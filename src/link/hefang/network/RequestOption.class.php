@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2019/1/3
- * Time: 10:26
- */
 
 namespace link\hefang\network;
 

@@ -19,7 +19,9 @@ class TestParseHelper extends TestCase
             self::assertFalse(ParseHelper::parseBoolean($value));
         }
         foreach (['TrUe', 1, '1', 100, 'sdfsdfsdfsd', [1, 2]] as $value) {
-            self::assertTrue(ParseHelper::parseBoolean($value));
+            $bool = ParseHelper::parseBoolean($value, true);
+            print (json_encode($value) . ":" . ($bool ? "true" : "false") . "\n");
+            self::assertTrue($bool);
         }
     }
 }

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: he
- * Date: 2019/3/6
- * Time: 9:30
- */
-
 namespace link\hefang\otp;
 
 

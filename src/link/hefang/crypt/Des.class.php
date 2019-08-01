@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: he
- * Date: 2019/3/9
- * Time: 9:18
- */
-
 namespace link\hefang\crypt;
 
 

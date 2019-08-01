@@ -1,18 +1,17 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/4
- * Time: 08:22
- */
 
 namespace link\hefang\caches;
 
 use link\hefang\helpers\CollectionHelper;
+use Serializable;
 
 defined("PHP_HELPERS") or die(1);
 
-class CacheItem implements \Serializable
+/**
+ * Class CacheItem
+ * @package link\hefang\caches
+ */
+class CacheItem implements Serializable
 {
     private $value = null;
     private $expireIn = 0;
@@ -28,13 +27,19 @@ class CacheItem implements \Serializable
         $this->expireIn = $expireIn;
     }
 
+    /**
+     * 反序列化CacheItem
+     * @param string $string
+     * @return CacheItem
+     */
     public static function fromSerializedString(string $string): CacheItem
     {
         return unserialize($string);
     }
 
     /**
-     * @return null
+     * 获取缓存值
+     * @return mixed
      */
     public function getValue()
     {
@@ -42,7 +47,8 @@ class CacheItem implements \Serializable
     }
 
     /**
-     * @param null $value
+     * 设置缓存值
+     * @param mixed $value
      * @return CacheItem
      */
     public function setValue($value)
@@ -52,6 +58,7 @@ class CacheItem implements \Serializable
     }
 
     /**
+     * 获取缓存有效期
      * @return int
      */
     public function getExpireIn(): int
@@ -60,6 +67,7 @@ class CacheItem implements \Serializable
     }
 
     /**
+     * 设置缓存有效期
      * @param int $expireIn
      * @return CacheItem
      */

@@ -6,10 +6,10 @@ defined("PHP_HELPERS") or die(1);
 final class ParseHelper
 {
     const FALSE_VALUES = [
-        "0", "false", "no", "null", "undefined", "not", "否", "关", "不", "错", "假", "非", "甭", "闭", "off"
+        "0", "false", "no", "null", "undefined", "not", "否", "关", "不", "错", "假", "非", "甭", "闭", "off", "f"
     ];
     const TRUE_VALUES = [
-        "1", "true", "yes", "是", "真", "对", "开", "启", "on"
+        "1", "true", "yes", "是", "真", "对", "开", "启", "on", "t"
     ];
 
     /**

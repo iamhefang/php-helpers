@@ -35,8 +35,9 @@ final class CollectionHelper
      */
     public static function last($array, $defaultValue = null)
     {
-        if (!is_array($array)) return $defaultValue;
-        return empty($array) ? $defaultValue : $array[count($array) - 1];
+        if (!is_array($array) || empty($array)) return $defaultValue;
+        $keys = array_keys($array);
+        return $array[$keys[count($keys) - 1]];
     }
 
 

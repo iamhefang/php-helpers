@@ -25,9 +25,9 @@ final class HashHelper
      * @param string $salt 加密时使用的盐
      * @return string 40位 hash 密码
      */
-    public static function passwordHash(string $pwd, string $salt = ''): string
+    public static function passwordHash(string $pwd, string $salt = ""): string
     {
-        return sha1(md5($pwd) . sha1($pwd) . $salt);
+        return sha1(md5($pwd) . sha1($pwd) . $salt ?: "");
     }
 
     /**

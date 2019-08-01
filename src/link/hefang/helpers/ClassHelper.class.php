@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: hefang
- * Date: 2018/12/5
- * Time: 10:17
- */
-
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 

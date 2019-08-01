@@ -15,7 +15,7 @@ final class TimeHelper
     /**
      * 格式化时间
      * @param string $format 格式
-     * @param int $timeMillis 毫秒级时间戳, 默认为当前时间
+     * @param float $timeMillis 毫秒级时间戳, 默认为当前时间
      * @return false|string
      */
     public static function formatMillis(string $format = "Y-m-d H:i:s", float $timeMillis = -1)

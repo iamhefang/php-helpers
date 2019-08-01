@@ -97,6 +97,11 @@ final class FileHelper
         return $count;
     }
 
+    /**
+     * 如果目录以 DIRECTORY_SEPARATOR 结尾, 返回原目录, 否则返回以DIRECTORY_SEPARATOR结尾的目录
+     * @param string $dir 目录
+     * @return string 结果
+     */
     public static function appendDirSeparator(string $dir)
     {
         if ($dir{strlen($dir) - 1} === DIRECTORY_SEPARATOR) return $dir;

@@ -18,7 +18,9 @@
   "homepage": "https://github.com/iamhefang/php-helpers",
   "license": "MIT",
   "require": {
-    "php": ">=7.0.0"
+    "php": ">=7.0.0",
+    "ext-curl": "*",
+    "ext-json": "*"
   },
   "authors": [
     {
