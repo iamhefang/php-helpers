@@ -4,6 +4,5 @@ build/
 build.php
 php-helpers.iml
 vendor/
-stub_templete.php
 my_stub_templete.php
 test.php
