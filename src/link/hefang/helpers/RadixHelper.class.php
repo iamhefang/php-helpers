@@ -16,7 +16,7 @@ final class RadixHelper
         'u', 'v', 'w', 'x', 'y', 'z'
     ];
 
-    public static function ten2Radix($number, int $radix)
+    public static function dec2radix($number, int $radix)
     {
         $length = count(self::MAP);
         if ($radix < 2 || $radix > $length) {
