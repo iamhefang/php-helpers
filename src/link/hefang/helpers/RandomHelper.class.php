@@ -1,4 +1,5 @@
 <?php
+
 namespace link\hefang\helpers;
 defined("PHP_HELPERS") or die(1);
 
