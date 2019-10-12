@@ -16,9 +16,14 @@ final class RadixHelper
       'u', 'v', 'w', 'x', 'y', 'z'
    ];
 
-   public static function dec2radix($number, int $radix)
+   /**
+    * 将10进制数转换为指定进制
+    * @param $number 10进制
+    * @param int $radix 指定的进制基数
+    * @return string 结果
+    */
+   public static function dec2radix($number, int $radix): string
    {
-      var_dump($number);
       $length = count(self::MAP);
       if ($radix < 2 || $radix > $length) {
          throw new ParamsException("radix只能在2到{$length}之间");
