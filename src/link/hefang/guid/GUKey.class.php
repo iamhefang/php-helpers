@@ -4,6 +4,7 @@
 namespace link\hefang\guid;
 
 
+use link\hefang\helpers\CollectionHelper;
 use link\hefang\helpers\RadixHelper;
 use link\hefang\helpers\RandomHelper;
 
@@ -32,7 +33,7 @@ class GUKey
       $this->nameCode = substr(RadixHelper::dec2radix($nameCodeValue, 36) . $this->rand36number(), 0, 10);
       $this->versionCode = RadixHelper::dec2radix(self::VERSION, 36);
       $this->machineIdCode = str_pad(RadixHelper::dec2radix($machineID, 36), 2, "0", STR_PAD_LEFT);
-      $this->serverInfoCode = substr(md5(join("", array_values($_SERVER))), 0, 9);
+      $this->serverInfoCode = substr(md5(join("", CollectionHelper::reduceDimension($_SERVER))), 0, 9);
    }
 
    /**

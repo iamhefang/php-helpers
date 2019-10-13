@@ -1,11 +1,32 @@
 <?php
 
 namespace link\hefang\helpers;
+
+use function foo\func;
+
 defined("PHP_HELPERS") or die(1);
 
 
 final class CollectionHelper
 {
+   /**
+    * 索引数组降维
+    * @param array $array
+    * @return array
+    */
+   public static function reduceDimension(array $array): array
+   {
+      $result = [];
+      foreach (array_values($array) as $key => $value) {
+         if (is_array($value)) {
+            $result = array_merge($result, self::reduceDimension($value));
+         } else {
+            $result[] = $value;
+         }
+      }
+      return $result;
+   }
+
    public static function getOrDefault($array, string $key, $defaultValue = null)
    {
       return is_array($array) && array_key_exists($key, $array) ? $array[$key] : $defaultValue;

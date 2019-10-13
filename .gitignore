@@ -6,3 +6,4 @@ php-helpers.iml
 vendor/
 my_stub_templete.php
 test.php
+*.lock
