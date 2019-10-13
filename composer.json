@@ -1,41 +1,41 @@
 {
-  "name": "hefang/php-helpers",
-  "type": "library",
-  "description": "PHP 助手类库",
-  "version": "0.0.2",
-  "keywords": [
-    "字符串",
-    "加密",
-    "解密",
-    "文件",
-    "助手",
-    "string",
-    "encrypt",
-    "decrypt",
-    "file",
-    "helpers"
-  ],
-  "homepage": "https://github.com/iamhefang/php-helpers",
-  "license": "MIT",
-  "require": {
-    "php": ">=7.0.0",
-    "ext-curl": "*",
-    "ext-json": "*"
-  },
-  "authors": [
-    {
-      "name": "何方",
-      "email": "he@hefang.link",
-      "homepage": "https://hefang.link",
-      "role": "Developer"
-    }
-  ],
-  "autoload": {
-    "files": [
-      "src/php-helpers.php"
-    ]
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^6.2"
-  }
+   "name": "hefang/php-helpers",
+   "type": "library",
+   "description": "PHP 助手类库",
+   "version": "1.0.0",
+   "keywords": [
+      "字符串",
+      "加密",
+      "解密",
+      "文件",
+      "助手",
+      "string",
+      "encrypt",
+      "decrypt",
+      "file",
+      "helpers"
+   ],
+   "homepage": "https://github.com/iamhefang/php-helpers",
+   "license": "MIT",
+   "require": {
+      "php": ">=7.0.0",
+      "ext-curl": "*",
+      "ext-json": "*"
+   },
+   "authors": [
+      {
+         "name": "何方",
+         "email": "he@hefang.link",
+         "homepage": "https://hefang.link",
+         "role": "Developer"
+      }
+   ],
+   "autoload": {
+      "files": [
+         "src/php-helpers.php"
+      ]
+   },
+   "require-dev": {
+      "phpunit/phpunit": "^6.2"
+   }
 }
