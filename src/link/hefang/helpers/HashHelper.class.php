@@ -8,12 +8,24 @@ defined("PHP_HELPERS") or die(1);
 
 final class HashHelper
 {
+   /**
+    * des加密
+    * @param string $data 要加密的数据
+    * @param string $key 密码
+    * @return string 结果
+    */
    public static function desEncrypt(string $data, string $key): string
    {
       $des = new Des();
       return $des->encrypt($data, $key);
    }
 
+   /**
+    * des解密
+    * @param string $data 要解密的数据
+    * @param string $key 密码
+    * @return string 解密后的结果
+    */
    public static function desDecrypt(string $data, string $key): string
    {
       $des = new Des();
@@ -21,7 +33,8 @@ final class HashHelper
    }
 
    /**
-    * @param string $pwd 前端使用 <code>sha1(password) + md5(password)</code> hash 过的72位密码
+    * 计算密码hash
+    * @param string $pwd 密码
     * @param string $salt 加密时使用的盐
     * @return string 40位 hash 密码
     */
@@ -31,15 +44,15 @@ final class HashHelper
    }
 
    /**
-    * @param string $password 原始密码
+    * @param string $pwd 原始密码
     * @param string $hash hash密码
     * @param string $salt 加密时使用的盐
     * @return bool
     */
-   public static function passwordVerify(string $password, string $hash, string $salt = ''): bool
+   public static function passwordVerify(string $pwd, string $hash, string $salt = ''): bool
    {
-      if (StringHelper::isNullOrBlank($hash) || StringHelper::isNullOrBlank($password)) return false;
-      $pwd = sha1($password) + md5($password);
+      if (StringHelper::isNullOrBlank($hash) || StringHelper::isNullOrBlank($pwd)) return false;
+//      $pwd = sha1($password) . md5($password);
       return self::passwordHash($pwd, $salt) === $hash;
    }
 
