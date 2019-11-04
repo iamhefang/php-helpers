@@ -7,6 +7,10 @@ final class TimeHelper
 {
    const  SMALL_MONTH = [4, 6, 9, 11];
 
+   /**
+    * 获取毫秒级时间戳
+    * @return float
+    */
    public static function currentTimeMillis(): float
    {
       return floor(microtime(true) * 1000);

@@ -11,5 +11,6 @@ class FileNotFoundException extends IOException
     */
    public function __construct($filename)
    {
+      parent::__construct($filename);
    }
 }
