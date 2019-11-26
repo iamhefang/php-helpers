@@ -16,6 +16,10 @@ class GUKey
    private $machineIdCode = "";
    private $serverInfoCode = "";
 
+   public static function isGuKey(string $key): bool
+   {
+      return strlen($key) === 40;
+   }
 
    /**
     * GUKey constructor.
