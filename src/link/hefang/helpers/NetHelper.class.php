@@ -7,6 +7,11 @@ use link\hefang\network\RequestOption;
 
 class NetHelper
 {
+   /**
+    * 执行网络请求
+    * @param RequestOption $option
+    * @return bool|string 成功返回数据, 失败返回false
+    */
    public static function request(RequestOption $option)
    {
       $ch = curl_init($option->getUrl());
@@ -32,11 +37,22 @@ class NetHelper
       return $out;
    }
 
+   /**
+    * 执行get请求
+    * @param string $url 要请求的url
+    * @return bool|string 成功返回数据, 失败返回false
+    */
    public static function get(string $url)
    {
       return self::request(new RequestOption($url));
    }
 
+   /**
+    * 执行post请求
+    * @param string $url 要请求的url
+    * @param array|string $data 要发送的数据
+    * @return bool|string 成功返回数据, 失败返回false
+    */
    public static function post(string $url, $data)
    {
       $opt = new RequestOption($url);

@@ -41,6 +41,7 @@ final class ClassHelper
    }
 
    /**
+    * 获取当前类路径
     * @return array
     */
    public static function getClassPaths(): array
