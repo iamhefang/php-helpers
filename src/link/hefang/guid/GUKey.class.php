@@ -7,6 +7,7 @@ namespace link\hefang\guid;
 use link\hefang\helpers\CollectionHelper;
 use link\hefang\helpers\RadixHelper;
 use link\hefang\helpers\RandomHelper;
+use link\hefang\helpers\StringHelper;
 
 class GUKey
 {
@@ -16,9 +17,14 @@ class GUKey
    private $machineIdCode = "";
    private $serverInfoCode = "";
 
-   public static function isGuKey(string $key): bool
+   /**
+    * 判断一个字符串是否为GuKey
+    * @param  $key string
+    * @return bool
+    */
+   public static function isGuKey($key): bool
    {
-      return strlen($key) === 40;
+      return !StringHelper::isNullOrBlank($key) && strlen($key) === 40;
    }
 
    /**
