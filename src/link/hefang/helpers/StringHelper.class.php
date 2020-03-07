@@ -47,8 +47,9 @@ final class StringHelper
     * @param string|array $searches [optional]
     * @return bool
     */
-   public static function contains(string $string, bool $ignoreCase = false, $searches = ''): bool
+   public static function contains($string, bool $ignoreCase = false, $searches = ''): bool
    {
+      if (self::isNullOrEmpty($string)) return false;
       if (!is_array($searches)) {
          $searches = func_get_args();
          $string = array_shift($searches);

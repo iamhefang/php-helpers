@@ -2,8 +2,6 @@
 
 namespace link\hefang\helpers;
 
-use function foo\func;
-
 defined("PHP_HELPERS") or die(1);
 
 
@@ -61,6 +59,17 @@ final class CollectionHelper
       return $array[$keys[count($keys) - 1]];
    }
 
+   /**
+    * 将php数组转换为php文件
+    * @param array $array
+    * @return string
+    */
+   public static function stringify(array $array): string
+   {
+      return "[" . join(",", array_map(function ($key, $value) {
+            return json_encode($key, JSON_UNESCAPED_UNICODE) . "=>" . (is_array($value) ? self::stringify($value) : json_encode($value, JSON_UNESCAPED_UNICODE));
+         }, array_keys($array), array_values($array))) . "]";
+   }
 
    /**
     * CollectionHelper constructor.
