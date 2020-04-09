@@ -13,17 +13,17 @@ final class ZipHelper
     * @param string $zipFile 要解压的zip文件
     * @param string $extractTo 要解压到的路径
     * @param string|null $password zip文件密码
-    * @return bool 是否成功
+    * @return bool|mixed 是否成功
     */
-   public static function unCompress(string $zipFile, string $extractTo, string $password = null): bool
+   public static function unCompress(string $zipFile, string $extractTo, string $password = null)
    {
       self::checkEnv();
       if (!file_exists($zipFile) || !is_dir($extractTo) || !is_writable($extractTo)) {
          return false;
       }
       $zip = new ZipArchive();
-      if ($zip->open(ZipArchive::ER_OPEN) !== true) {
-         return false;
+      if (($res = $zip->open($zipFile, ZipArchive::ER_READ)) !== true) {
+         return $res;
       }
       if (!StringHelper::isNullOrBlank($password)) {
          $zip->setPassword($password);

@@ -67,7 +67,7 @@ final class CollectionHelper
    public static function stringify(array $array): string
    {
       return "[" . join(",", array_map(function ($key, $value) {
-            return json_encode($key, JSON_UNESCAPED_UNICODE) . "=>" . (is_array($value) ? self::stringify($value) : json_encode($value, JSON_UNESCAPED_UNICODE));
+            return json_encode($key, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "=>" . (is_array($value) ? self::stringify($value) : json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
          }, array_keys($array), array_values($array))) . "]";
    }
 

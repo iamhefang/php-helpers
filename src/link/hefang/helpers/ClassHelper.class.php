@@ -35,6 +35,7 @@ final class ClassHelper
             } else {
                include $file;
             }
+            break;
          }
       }, true);
       self::$loaderRegistered = true;
