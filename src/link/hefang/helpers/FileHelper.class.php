@@ -28,7 +28,7 @@ final class FileHelper
             $res[] = $file;
          }
          if (is_dir($file)) {
-            $sub = self::listFilesAndDirs($file);
+            $sub = self::listFilesAndDirs($file, $filter);
             if (!empty($sub)) {
                $res = array_merge($res, $sub);
             }
@@ -46,7 +46,7 @@ final class FileHelper
    public static function listFiles(string $rootDir, callable $filter = null): array
    {
       $array = self::listFilesAndDirs($rootDir, function (string $file) {
-         return is_file($file);
+         return !is_dir($file);
       });
       return is_callable($filter) ? array_filter($array, $filter) : $array;
    }
@@ -106,6 +106,15 @@ final class FileHelper
    {
       if ($dir{strlen($dir) - 1} === DIRECTORY_SEPARATOR) return $dir;
       return $dir . DIRECTORY_SEPARATOR;
+   }
+
+   /**
+    * @param string $path 要移动的文件或目录
+    * @param string $to 目标路径
+    */
+   public static function move(string $path, string $to)
+   {
+
    }
 
    private function __construct()

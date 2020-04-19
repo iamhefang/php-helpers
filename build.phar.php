@@ -41,3 +41,8 @@ $stub = str_replace("!!CLI_ENTRY!!", $cli, $stub);
 $phar->setStub($stub);
 
 $phar->compressFiles(Phar::GZ);
+
+echo "已生成文件$fnname\n";
+
+
+copy($fnname, __DIR__ . "/build/$name-latest.phar");

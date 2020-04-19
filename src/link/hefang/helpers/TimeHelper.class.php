@@ -55,6 +55,16 @@ final class TimeHelper
       return ($year % 4 == 0 || $year % 100 == 0) && $year % 400 != 0;
    }
 
+   /**
+    * 计算$days天共多少毫秒
+    * @param int $days 天数
+    * @return float
+    */
+   public static function millisOfDays(int $days): float
+   {
+      return $days * 24 * 60 * 60 * 1000;
+   }
+
    private function __construct()
    {
    }
