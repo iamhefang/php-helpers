@@ -10,14 +10,14 @@ final class FileHelper
     * @param string $rootDir 根目录
     * @param callable|null $filter 过滤器
     *
-    * 如只列出'a'开头的文件和目录: function(string $file){return $file{0} === "a";}
+    * 如只列出'a'开头的文件和目录: function(string $file){return $file[0] === "a";}
     * @return array
     */
    public static function listFilesAndDirs(string $rootDir, callable $filter = null): array
    {
       if (!is_dir($rootDir)) return [];
       $res = [];
-      if ($rootDir{strlen($rootDir) - 1} !== DIRECTORY_SEPARATOR) {
+      if ($rootDir[strlen($rootDir) - 1] !== DIRECTORY_SEPARATOR) {
          $rootDir = $rootDir . DIRECTORY_SEPARATOR;
       }
       $items = scandir($rootDir);
@@ -104,7 +104,7 @@ final class FileHelper
     */
    public static function appendDirSeparator(string $dir)
    {
-      if ($dir{strlen($dir) - 1} === DIRECTORY_SEPARATOR) return $dir;
+      if ($dir[strlen($dir) - 1] === DIRECTORY_SEPARATOR) return $dir;
       return $dir . DIRECTORY_SEPARATOR;
    }
 

@@ -2,7 +2,7 @@
    "name": "hefang/php-helpers",
    "type": "library",
    "description": "PHP 助手类库",
-   "version": "1.1.1",
+   "version": "1.1.2",
    "keywords": [
       "字符串",
       "加密",
